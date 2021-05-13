@@ -21,7 +21,7 @@ public class TodoItemsHolderImpl implements TodoItemsHolder {
 
     @Override
     public void addNewInProgressItem(String description) {
-        items.add(new TodoItem(description));
+        items.add(0,new TodoItem(description));
     }
 
     @Override
