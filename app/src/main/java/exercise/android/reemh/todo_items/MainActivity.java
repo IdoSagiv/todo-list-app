@@ -1,27 +1,80 @@
 package exercise.android.reemh.todo_items;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    public TodoItemsHolder holder = null;
+    public TodoItemsHolder itemsHolder = null;
+    private TodoListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (holder == null) {
-            holder = new TodoItemsHolderImpl();
+        if (itemsHolder == null) {
+            itemsHolder = new TodoItemsHolderImpl();
         }
+        adapter = new TodoListAdapter();
+        adapter.setItems(itemsHolder);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerTodoItemsList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+
+        adapter.onDeleteClickCallback = item -> {
+            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE: {
+                        itemsHolder.deleteItem(item);
+                        adapter.setItems(itemsHolder);
+                    }
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Delete task?")
+                    .setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show();
+        };
+
+        adapter.onChangeStatusClickCallback = item -> {
+            TodoItem.Status otherStatus = item.status() == TodoItem.Status.DONE ?
+                    TodoItem.Status.IN_PROGRESS : TodoItem.Status.DONE;
+            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE: {
+                        item.changeStatus(otherStatus);
+                        adapter.setItems(itemsHolder);
+                    }
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Change status to " + otherStatus.toString() + "?")
+                    .setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show();
+        };
+
+        findViewById(R.id.buttonCreateTodoItem).setOnClickListener(v -> {
+            EditText todoDesc = findViewById(R.id.editTextInsertTask);
+            itemsHolder.addNewInProgressItem(todoDesc.getText().toString());
+            adapter.setItems(itemsHolder);
+            todoDesc.setText("");
+        });
+
 
         // TODO: implement the specs as defined below
         //    (find all UI components, hook them up, connect everything you need)

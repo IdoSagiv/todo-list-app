@@ -11,7 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:clickable="false"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,21 +33,20 @@
     <TextView
         android:id="@+id/textViewTodoTaskDescription"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/light_blue_rect_with_rounded_corners"
         android:elevation="4dp"
-        android:maxLines="1"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonDeleteTask"
         app:layout_constraintStart_toEndOf="@+id/imageViewTodoStatus"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="this is a todo task" />
-
-
-    <!-- TODO: edit this file as you want-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
