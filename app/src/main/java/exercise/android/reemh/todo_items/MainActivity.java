@@ -12,20 +12,20 @@ import android.view.ViewGroup;
 
 public class MainActivity extends AppCompatActivity {
 
-  public TodoItemsHolder holder = null;
+    public TodoItemsHolder holder = null;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-    if (holder == null) {
-      holder = new TodoItemsHolderImpl();
+        if (holder == null) {
+            holder = new TodoItemsHolderImpl();
+        }
+
+        // TODO: implement the specs as defined below
+        //    (find all UI components, hook them up, connect everything you need)
     }
-
-    // TODO: implement the specs as defined below
-    //    (find all UI components, hook them up, connect everything you need)
-  }
 }
 
 /*
