@@ -8,7 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,12 +73,16 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton("Yes", dialogClickListener)
                     .setNegativeButton("No", dialogClickListener).show();
         };
-
-        findViewById(R.id.buttonCreateTodoItem).setOnClickListener(v -> {
-            EditText todoDesc = findViewById(R.id.editTextInsertTask);
-            itemsHolder.addNewInProgressItem(todoDesc.getText().toString());
+        FloatingActionButton createTaskBtn = findViewById(R.id.buttonCreateTodoItem);
+        EditText insertTaskEditText = findViewById(R.id.editTextInsertTask);
+        createTaskBtn.setOnClickListener(v -> {
+            if (insertTaskEditText.getText().toString().isEmpty()) {
+                Toast.makeText(this, "enter task description", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            itemsHolder.addNewInProgressItem(insertTaskEditText.getText().toString());
             adapter.setItems(itemsHolder);
-            todoDesc.setText("");
+            insertTaskEditText.setText("");
         });
 
 
