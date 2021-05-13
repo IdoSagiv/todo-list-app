@@ -1,7 +1,5 @@
 package exercise.android.reemh.todo_items;
 
-import android.graphics.drawable.Drawable;
-
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
@@ -44,9 +42,9 @@ public class TodoItem implements Serializable {
         // todo: implement
         switch (mStatus) {
             case IN_PROGRESS:
-                return R.drawable.ic_task_in_progres_v;
+                return R.drawable.ic_task_in_progres;
             case DONE:
-                return R.drawable.ic_task_done_v;
+                return R.drawable.ic_task_done;
             default:
                 return R.drawable.ic_task_not_started;
         }
