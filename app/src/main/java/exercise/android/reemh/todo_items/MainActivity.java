@@ -1,20 +1,26 @@
 package exercise.android.reemh.todo_items;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,8 +79,10 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton("Yes", dialogClickListener)
                     .setNegativeButton("No", dialogClickListener).show();
         };
+
         FloatingActionButton createTaskBtn = findViewById(R.id.buttonCreateTodoItem);
         EditText insertTaskEditText = findViewById(R.id.editTextInsertTask);
+
         createTaskBtn.setOnClickListener(v -> {
             if (insertTaskEditText.getText().toString().isEmpty()) {
                 Toast.makeText(this, "enter task description", Toast.LENGTH_SHORT).show();
@@ -84,12 +92,25 @@ public class MainActivity extends AppCompatActivity {
             adapter.setItems(itemsHolder);
             insertTaskEditText.setText("");
         });
+    }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("todoListHolder", itemsHolder);
+    }
 
-        // TODO: implement the specs as defined below
-        //    (find all UI components, hook them up, connect everything you need)
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Serializable savedHolder = savedInstanceState.getSerializable("todoListHolder");
+        if (savedHolder instanceof TodoItemsHolder) {
+            itemsHolder = (TodoItemsHolder) savedHolder;
+            adapter.setItems(itemsHolder);
+        }
     }
 }
+
 
 /*
 

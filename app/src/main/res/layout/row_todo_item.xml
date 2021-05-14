@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:minHeight="40dp">
 
+    <!--    todo: change to check box? -->
     <ImageView
         android:id="@+id/imageViewTodoStatus"
         android:layout_width="wrap_content"
@@ -16,8 +17,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_task_not_started" />
+        tools:src="@drawable/ic_task_in_progress" />
+    <!--    <CheckBox-->
+    <!--        android:id="@+id/checkBoxTaskStatus"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="4dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
+
+    <!--    todo: delete upon long press?-->
     <ImageView
         android:id="@+id/buttonDeleteTask"
         android:layout_width="wrap_content"
@@ -48,5 +59,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageViewTodoStatus"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="this is a todo task" />
+
+    <!--    todo: show creation time?-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
