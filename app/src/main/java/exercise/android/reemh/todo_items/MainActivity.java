@@ -6,15 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -42,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-        adapter.onDeleteClickCallback = item -> {
+        adapter.onLongPressCallback = item -> {
             DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE: {
@@ -63,21 +56,29 @@ public class MainActivity extends AppCompatActivity {
         adapter.onChangeStatusClickCallback = item -> {
             TodoItem.Status otherStatus = item.status() == TodoItem.Status.DONE ?
                     TodoItem.Status.IN_PROGRESS : TodoItem.Status.DONE;
-            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE: {
-                        item.changeStatus(otherStatus);
-                        adapter.setItems(itemsHolder);
-                    }
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        break;
-                }
-            };
+//            // ask before change
+//            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+//                switch (which) {
+//                    case DialogInterface.BUTTON_POSITIVE: {
+//                        item.changeStatus(otherStatus);
+//                        adapter.setItems(itemsHolder);
+//                        Toast.makeText(this, "task marked " + otherStatus.toString(),
+//                                Toast.LENGTH_SHORT).show();
+//                    }
+//                    case DialogInterface.BUTTON_NEGATIVE:
+//                        break;
+//                }
+//            };
+//
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setMessage("Change status to " + otherStatus.toString() + "?")
+//                    .setPositiveButton("Yes", dialogClickListener)
+//                    .setNegativeButton("No", dialogClickListener).show();
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Change status to " + otherStatus.toString() + "?")
-                    .setPositiveButton("Yes", dialogClickListener)
-                    .setNegativeButton("No", dialogClickListener).show();
+            item.changeStatus(otherStatus);
+            adapter.setItems(itemsHolder);
+            Toast.makeText(this, "task marked " + otherStatus.toString(),
+                    Toast.LENGTH_SHORT).show();
         };
 
         FloatingActionButton createTaskBtn = findViewById(R.id.buttonCreateTodoItem);

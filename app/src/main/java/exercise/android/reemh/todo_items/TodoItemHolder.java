@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TodoItemHolder extends RecyclerView.ViewHolder {
     TextView description;
-    ImageView deleteBtn;
     ImageView statusIcon;
+    View view;
 
     public TodoItemHolder(@NonNull View itemView) {
         super(itemView);
+        view = itemView;
         description = itemView.findViewById(R.id.textViewTodoTaskDescription);
-        deleteBtn = itemView.findViewById(R.id.buttonDeleteTask);
         statusIcon = itemView.findViewById(R.id.imageViewTodoStatus);
     }
 }

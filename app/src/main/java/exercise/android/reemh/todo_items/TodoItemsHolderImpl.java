@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
 
-// TODO: implement!
 public class TodoItemsHolderImpl implements TodoItemsHolder {
     //ToDo: best collection type?
     private final ArrayList<TodoItem> items;

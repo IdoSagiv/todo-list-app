@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
     private final ArrayList<TodoItem> mTodoItems = new ArrayList<>();
-    OnTaskClickListener onDeleteClickCallback = null;
+    OnTaskClickListener onLongPressCallback = null;
     OnTaskClickListener onChangeStatusClickCallback = null;
 
     public void setItems(TodoItemsHolder todoItemsHolder) {
@@ -26,6 +26,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
     public TodoItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_todo_item, parent, false);
+
         return new TodoItemHolder(view);
     }
 
@@ -42,10 +43,11 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
             holder.description.setPaintFlags(holder.description.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
-        holder.deleteBtn.setOnClickListener(v -> {
-            if (onDeleteClickCallback != null) {
-                onDeleteClickCallback.onClick(todoItem);
+        holder.view.setOnLongClickListener(v -> {
+            if (onLongPressCallback != null) {
+                onLongPressCallback.onClick(todoItem);
             }
+            return true;
         });
 
         holder.statusIcon.setOnClickListener(v -> {
