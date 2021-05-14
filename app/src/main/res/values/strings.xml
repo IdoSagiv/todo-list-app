@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">TodoItems</string>
     <string name="edit_text_insert_task_hint">Add task...</string>
+    <string name="task_description_not_entered_toast">enter task description</string>
+    <string name="change_task_status_toast_format">task marked&#160;</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="delete_task_question">Delete task?</string>
 </resources>

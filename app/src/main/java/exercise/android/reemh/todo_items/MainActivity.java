@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Delete task?")
-                    .setPositiveButton("Yes", dialogClickListener)
-                    .setNegativeButton("No", dialogClickListener).show();
+            builder.setMessage(getString(R.string.delete_task_question))
+                    .setPositiveButton(getString(R.string.yes), dialogClickListener)
+                    .setNegativeButton(getString(R.string.no), dialogClickListener).show();
         };
 
         adapter.onChangeStatusClickCallback = item -> {
@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
             item.changeStatus(otherStatus);
             adapter.setItems(itemsHolder);
-            Toast.makeText(this, "task marked " + otherStatus.toString(),
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.change_task_status_toast_format)
+                    + otherStatus.toString(), Toast.LENGTH_SHORT).show();
         };
 
         FloatingActionButton createTaskBtn = findViewById(R.id.buttonCreateTodoItem);
@@ -86,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
         createTaskBtn.setOnClickListener(v -> {
             if (insertTaskEditText.getText().toString().isEmpty()) {
-                Toast.makeText(this, "enter task description", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.task_description_not_entered_toast),
+                        Toast.LENGTH_SHORT).show();
                 return;
             }
             itemsHolder.addNewInProgressItem(insertTaskEditText.getText().toString());

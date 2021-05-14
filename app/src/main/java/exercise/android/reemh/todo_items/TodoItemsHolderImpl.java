@@ -1,14 +1,10 @@
 package exercise.android.reemh.todo_items;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.TreeSet;
 
 public class TodoItemsHolderImpl implements TodoItemsHolder {
-    //ToDo: best collection type?
     private final ArrayList<TodoItem> items;
 
     public TodoItemsHolderImpl() {
