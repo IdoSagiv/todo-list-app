@@ -25,12 +25,12 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
 
     private Status mStatus;
     private final String mDescription;
-    private final long mCreateTime;
+    private final long mCreationTime;
 
     public TodoItem(String description) {
         this.mDescription = description;
         this.mStatus = Status.IN_PROGRESS;
-        this.mCreateTime = System.currentTimeMillis();
+        this.mCreationTime = System.currentTimeMillis();
     }
 
     public void changeStatus(Status status) {
@@ -44,14 +44,10 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
 
     public int getStatusIconRes() {
         // todo: icon or checkbox?
-        switch (mStatus) {
-            case IN_PROGRESS:
-                return R.drawable.ic_task_in_progres;
-            case DONE:
-                return R.drawable.ic_task_done;
-            default:
-                return R.drawable.ic_task_not_started;
+        if (mStatus == Status.DONE) {
+            return R.drawable.ic_task_done;
         }
+        return R.drawable.ic_task_in_progress;
     }
 
     public String description() {
@@ -63,16 +59,15 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
     }
 
     /**
-     * first compare by status (in-progres<done) second compare by editTime
+     * first compare by status (in-progress<done) second compare by editTime
      *
-     * @param o
-     * @return
+     * @param other other to-do item to compare to
+     * @return cmp>0 if this>other, c,p=0 if this=other, cmp<0 if this<other
      */
     @Override
-    public int compareTo(TodoItem o) {
-        // in-progres<done && new<old
-        int cmp = mStatus.value - o.mStatus.value;
-        cmp = cmp != 0 ? cmp : (int) (o.mCreateTime - mCreateTime);
+    public int compareTo(TodoItem other) {
+        int cmp = mStatus.value - other.mStatus.value;
+        cmp = cmp != 0 ? cmp : (int) (other.mCreationTime - mCreationTime);
         return cmp;
     }
 }
