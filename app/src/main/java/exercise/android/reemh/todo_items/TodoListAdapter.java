@@ -1,5 +1,6 @@
 package exercise.android.reemh.todo_items;
 
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +35,12 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
 
         holder.description.setText(todoItem.description());
         holder.description.setBackgroundResource(todoItem.getBackgroundRes());
-
         holder.statusIcon.setImageResource(todoItem.getStatusIconRes());
+        if (todoItem.status() == TodoItem.Status.DONE) {
+            holder.description.setPaintFlags(holder.description.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            holder.description.setPaintFlags(holder.description.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+        }
 
         holder.deleteBtn.setOnClickListener(v -> {
             if (onDeleteClickCallback != null) {
