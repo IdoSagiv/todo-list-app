@@ -4,14 +4,16 @@ import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 
-public class TodoItem implements Serializable {
-    public static enum Status {
-        IN_PROGRESS("in progress"),
-        DONE("done");
-        String asString;
+public class TodoItem implements Serializable, Comparable<TodoItem> {
+    public enum Status {
+        IN_PROGRESS("in progress", 0),
+        DONE("done", 1);
+        private final String asString;
+        private final int value;
 
-        private Status(String asString) {
+        Status(String asString, int value) {
             this.asString = asString;
+            this.value = value;
         }
 
         @NonNull
@@ -23,10 +25,12 @@ public class TodoItem implements Serializable {
 
     private Status mStatus;
     private final String mDescription;
+    private final long mCreateTime;
 
     public TodoItem(String description) {
         this.mDescription = description;
         this.mStatus = Status.IN_PROGRESS;
+        this.mCreateTime = System.currentTimeMillis();
     }
 
     public void changeStatus(Status status) {
@@ -34,12 +38,12 @@ public class TodoItem implements Serializable {
     }
 
     public int getBackgroundRes() {
-        // todo: implement
+        // todo: different color according to status?
         return R.drawable.light_blue_rect_with_rounded_corners;
     }
 
     public int getStatusIconRes() {
-        // todo: implement
+        // todo: icon or checkbox?
         switch (mStatus) {
             case IN_PROGRESS:
                 return R.drawable.ic_task_in_progres;
@@ -56,5 +60,19 @@ public class TodoItem implements Serializable {
 
     public Status status() {
         return mStatus;
+    }
+
+    /**
+     * first compare by status (in-progres<done) second compare by editTime
+     *
+     * @param o
+     * @return
+     */
+    @Override
+    public int compareTo(TodoItem o) {
+        // in-progres<done && new<old
+        int cmp = mStatus.value - o.mStatus.value;
+        cmp = cmp != 0 ? cmp : (int) (o.mCreateTime - mCreateTime);
+        return cmp;
     }
 }

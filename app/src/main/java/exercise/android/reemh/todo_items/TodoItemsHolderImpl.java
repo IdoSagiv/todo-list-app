@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
 
 // TODO: implement!
 public class TodoItemsHolderImpl implements TodoItemsHolder {
@@ -16,12 +17,13 @@ public class TodoItemsHolderImpl implements TodoItemsHolder {
 
     @Override
     public List<TodoItem> getCurrentItems() {
+        Collections.sort(items);
         return items;
     }
 
     @Override
     public void addNewInProgressItem(String description) {
-        items.add(0,new TodoItem(description));
+        items.add(new TodoItem(description));
     }
 
     @Override
