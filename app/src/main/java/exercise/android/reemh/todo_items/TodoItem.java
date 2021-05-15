@@ -81,7 +81,7 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
 
     public String creationTime() {
         Date creationDate = new Date(mCreationTime);
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm MM/d/yy");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yy");
         if (isSameDay(creationDate, new Date(System.currentTimeMillis()))) {
             sdf = new SimpleDateFormat("HH:mm:ss");
         }
