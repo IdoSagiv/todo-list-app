@@ -29,6 +29,7 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
     private Status mStatus;
     private final String mDescription;
     private final long mCreationTime;
+    private long doneTime;
 
     public TodoItem(String description) {
         this.mDescription = description;
@@ -44,6 +45,7 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
     }
 
     public void changeStatus(Status status) {
+        if (status == Status.DONE) doneTime = System.currentTimeMillis();
         mStatus = status;
     }
 
@@ -63,16 +65,18 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
     }
 
     /**
-     * first compare by status (in-progress<done) second compare by editTime
+     * first compare by status (in-progress<done).
+     * if status is inProgress second sort by creation time, if status is done second sort by done time.
      *
      * @param other other to-do item to compare to
      * @return cmp>0 if this>other, c,p=0 if this=other, cmp<0 if this<other
      */
     @Override
     public int compareTo(TodoItem other) {
-        int cmp = mStatus.value - other.mStatus.value;
-        cmp = cmp != 0 ? cmp : (int) (other.mCreationTime - mCreationTime);
-        return cmp;
+        int cmp1 = mStatus.value - other.mStatus.value;
+        int cmp2 = mStatus == Status.IN_PROGRESS ?
+                (int) (other.mCreationTime - mCreationTime) : (int) (other.doneTime - doneTime);
+        return cmp1 != 0 ? cmp1 : cmp2;
     }
 
     public String creationTime() {
