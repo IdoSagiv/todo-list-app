@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
                     TodoItem.Status.IN_PROGRESS : TodoItem.Status.DONE;
             item.changeStatus(otherStatus);
             adapter.setItems(itemsHolder);
-            Toast.makeText(this, getString(R.string.change_task_status_toast_format)
-                    + otherStatus.toString(), Toast.LENGTH_SHORT).show();
         };
 
         FloatingActionButton createTaskBtn = findViewById(R.id.buttonCreateTodoItem);
