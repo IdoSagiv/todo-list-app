@@ -35,7 +35,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
         TodoItem todoItem = mTodoItems.get(position);
 
         holder.description.setText(todoItem.description());
-        holder.description.setBackgroundResource(todoItem.getBackgroundRes());
 
         holder.creationTime.setText(todoItem.creationTime());
 

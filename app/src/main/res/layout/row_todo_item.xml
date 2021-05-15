@@ -2,23 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/todoItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="40dp">
 
-    <!--    todo: change to check box? -->
-<!--    <ImageView-->
-<!--        android:id="@+id/imageViewTodoStatus"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="4dp"-->
-<!--        android:clickable="true"-->
-<!--        android:focusable="true"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:src="@drawable/ic_task_in_progress" />-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/imageViewTodoStatus"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="4dp"-->
+    <!--        android:clickable="true"-->
+    <!--        android:focusable="true"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        tools:src="@drawable/ic_task_in_progress" />-->
 
     <CheckBox
         android:id="@+id/checkBoxTaskStatus"
@@ -50,14 +48,13 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="this is a todo task" />
 
-    <!--    todo: show creation time?-->
     <TextView
         android:id="@+id/textViewCreationDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="10:20"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="10:20" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
