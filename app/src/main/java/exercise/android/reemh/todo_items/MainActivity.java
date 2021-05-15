@@ -56,25 +56,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.onChangeStatusClickCallback = item -> {
             TodoItem.Status otherStatus = item.status() == TodoItem.Status.DONE ?
                     TodoItem.Status.IN_PROGRESS : TodoItem.Status.DONE;
-//            // ask before change
-//            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-//                switch (which) {
-//                    case DialogInterface.BUTTON_POSITIVE: {
-//                        item.changeStatus(otherStatus);
-//                        adapter.setItems(itemsHolder);
-//                        Toast.makeText(this, "task marked " + otherStatus.toString(),
-//                                Toast.LENGTH_SHORT).show();
-//                    }
-//                    case DialogInterface.BUTTON_NEGATIVE:
-//                        break;
-//                }
-//            };
-//
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setMessage("Change status to " + otherStatus.toString() + "?")
-//                    .setPositiveButton("Yes", dialogClickListener)
-//                    .setNegativeButton("No", dialogClickListener).show();
-
             item.changeStatus(otherStatus);
             adapter.setItems(itemsHolder);
             Toast.makeText(this, getString(R.string.change_task_status_toast_format)

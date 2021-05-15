@@ -39,7 +39,7 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
     }
 
     public int getBackgroundRes() {
-        // todo: different color according to status?
+        // todo: different color according to status? if not - set background in xml
         return R.drawable.light_blue_rect_with_rounded_corners;
     }
 
