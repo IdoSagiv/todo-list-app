@@ -12,6 +12,7 @@ public class TodoItemHolder extends RecyclerView.ViewHolder {
     TextView description;
 //    ImageView statusIcon;
     CheckBox statusCheckBox;
+    TextView creationTime;
     View view;
 
     public TodoItemHolder(@NonNull View itemView) {
@@ -20,5 +21,6 @@ public class TodoItemHolder extends RecyclerView.ViewHolder {
         description = itemView.findViewById(R.id.textViewTodoTaskDescription);
 //        statusIcon = itemView.findViewById(R.id.imageViewTodoStatus);
         statusCheckBox = view.findViewById(R.id.checkBoxTaskStatus);
+        creationTime = view.findViewById(R.id.textViewCreationDate);
     }
 }

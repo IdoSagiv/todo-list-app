@@ -36,6 +36,9 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
 
         holder.description.setText(todoItem.description());
         holder.description.setBackgroundResource(todoItem.getBackgroundRes());
+
+        holder.creationTime.setText(todoItem.creationTime());
+
 //        holder.statusIcon.setImageResource(todoItem.getStatusIconRes());
         if (todoItem.status() == TodoItem.Status.DONE) {
             holder.statusCheckBox.setChecked(true);

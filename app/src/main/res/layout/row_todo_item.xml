@@ -45,11 +45,19 @@
         android:paddingEnd="4dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewCreationDate"
         app:layout_constraintStart_toEndOf="@+id/checkBoxTaskStatus"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="this is a todo task" />
 
     <!--    todo: show creation time?-->
+    <TextView
+        android:id="@+id/textViewCreationDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="10:20"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

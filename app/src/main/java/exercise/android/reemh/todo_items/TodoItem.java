@@ -4,6 +4,8 @@ package exercise.android.reemh.todo_items;
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TodoItem implements Serializable, Comparable<TodoItem> {
     public enum Status {
@@ -32,6 +34,13 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
         this.mDescription = description;
         this.mStatus = Status.IN_PROGRESS;
         this.mCreationTime = System.currentTimeMillis();
+
+        // force time difference between two items
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void changeStatus(Status status) {
@@ -43,13 +52,12 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
         return R.drawable.light_blue_rect_with_rounded_corners;
     }
 
-    public int getStatusIconRes() {
-        // todo: icon or checkbox?
-        if (mStatus == Status.DONE) {
-            return R.drawable.ic_task_done;
-        }
-        return R.drawable.ic_task_in_progress;
-    }
+//    public int getStatusIconRes() {
+//        if (mStatus == Status.DONE) {
+//            return R.drawable.ic_task_done;
+//        }
+//        return R.drawable.ic_task_in_progress;
+//    }
 
     public String description() {
         return mDescription;
@@ -70,5 +78,19 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
         int cmp = mStatus.value - other.mStatus.value;
         cmp = cmp != 0 ? cmp : (int) (other.mCreationTime - mCreationTime);
         return cmp;
+    }
+
+    public String creationTime() {
+        Date creationDate = new Date(mCreationTime);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm MM/d/yy");
+        if (isSameDay(creationDate, new Date(System.currentTimeMillis()))) {
+            sdf = new SimpleDateFormat("HH:mm:ss");
+        }
+        return sdf.format(creationDate);
+    }
+
+    private static boolean isSameDay(Date date1, Date date2) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+        return fmt.format(date1).equals(fmt.format(date2));
     }
 }
