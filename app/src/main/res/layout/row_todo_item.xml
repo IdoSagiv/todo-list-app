@@ -45,6 +45,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="10:20" />
+        tools:text="10:20 16/05" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
