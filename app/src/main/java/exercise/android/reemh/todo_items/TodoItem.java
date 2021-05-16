@@ -49,12 +49,12 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
         mStatus = status;
     }
 
-//    public int getStatusIconRes() {
-//        if (mStatus == Status.DONE) {
-//            return R.drawable.ic_task_done;
-//        }
-//        return R.drawable.ic_task_in_progress;
-//    }
+    public int getStatusIconRes() {
+        if (mStatus == Status.DONE) {
+            return R.drawable.ic_task_done;
+        }
+        return R.drawable.ic_task_in_progress;
+    }
 
     public String description() {
         return mDescription;

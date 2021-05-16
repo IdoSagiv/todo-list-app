@@ -38,12 +38,10 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
 
         holder.creationTime.setText(todoItem.creationTime());
 
-//        holder.statusIcon.setImageResource(todoItem.getStatusIconRes());
+        holder.statusIcon.setImageResource(todoItem.getStatusIconRes());
         if (todoItem.status() == TodoItem.Status.DONE) {
-            holder.statusCheckBox.setChecked(true);
             holder.description.setPaintFlags(holder.description.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
-            holder.statusCheckBox.setChecked(false);
             holder.description.setPaintFlags(holder.description.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
@@ -54,16 +52,16 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
             return true;
         });
 
-//        holder.statusIcon.setOnClickListener(v -> {
-//            if (onChangeStatusClickCallback != null) {
-//                onChangeStatusClickCallback.onClick(todoItem);
-//            }
-//        });
-        holder.statusCheckBox.setOnClickListener(v -> {
+        holder.statusIcon.setOnClickListener(v -> {
             if (onChangeStatusClickCallback != null) {
                 onChangeStatusClickCallback.onClick(todoItem);
             }
         });
+//        holder.statusCheckBox.setOnClickListener(v -> {
+//            if (onChangeStatusClickCallback != null) {
+//                onChangeStatusClickCallback.onClick(todoItem);
+//            }
+//        });
     }
 
     @Override

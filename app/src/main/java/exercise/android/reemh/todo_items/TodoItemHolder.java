@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TodoItemHolder extends RecyclerView.ViewHolder {
     TextView description;
-//    ImageView statusIcon;
-    CheckBox statusCheckBox;
+    ImageView statusIcon;
     TextView creationTime;
     View view;
 
@@ -19,8 +18,7 @@ public class TodoItemHolder extends RecyclerView.ViewHolder {
         super(itemView);
         view = itemView;
         description = itemView.findViewById(R.id.textViewTodoTaskDescription);
-//        statusIcon = itemView.findViewById(R.id.imageViewTodoStatus);
-        statusCheckBox = view.findViewById(R.id.checkBoxTaskStatus);
+        statusIcon = itemView.findViewById(R.id.imageViewTodoStatus);
         creationTime = view.findViewById(R.id.textViewCreationDate);
     }
 }

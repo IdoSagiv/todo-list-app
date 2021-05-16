@@ -6,27 +6,17 @@
     android:layout_height="wrap_content"
     android:minHeight="40dp">
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/imageViewTodoStatus"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="4dp"-->
-    <!--        android:clickable="true"-->
-    <!--        android:focusable="true"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        tools:src="@drawable/ic_task_in_progress" />-->
-
-    <CheckBox
-        android:id="@+id/checkBoxTaskStatus"
-        android:layout_width="32dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:clickable="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageViewTodoStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_task_in_progress" />
 
 
     <TextView
@@ -44,7 +34,7 @@
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textViewCreationDate"
-        app:layout_constraintStart_toEndOf="@+id/checkBoxTaskStatus"
+        app:layout_constraintStart_toEndOf="@+id/imageViewTodoStatus"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="this is a todo task" />
 
