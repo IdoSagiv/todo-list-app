@@ -82,13 +82,13 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
     public String creationTime() {
         Date creationDate = new Date(mCreationTime);
         Date currentDate = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
         if (isSameDay(creationDate, currentDate)) {
             if(isSameMinute(creationDate, currentDate)){
                 sdf = new SimpleDateFormat("HH:mm:ss");
             }else sdf = new SimpleDateFormat("HH:mm");
         }else if (isSameYear(creationDate, currentDate)){
-            sdf = new SimpleDateFormat("HH:mm dd/MM");
+            sdf = new SimpleDateFormat("dd/MM");
         }
         return sdf.format(creationDate);
     }
