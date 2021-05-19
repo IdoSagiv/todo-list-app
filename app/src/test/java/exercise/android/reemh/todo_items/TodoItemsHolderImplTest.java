@@ -166,4 +166,6 @@ public class TodoItemsHolderImplTest {
     }
 
     // TODO: add at least 1 more tests
+
+    // todo: all the tests that test the items order are not relevant anymore
 }
