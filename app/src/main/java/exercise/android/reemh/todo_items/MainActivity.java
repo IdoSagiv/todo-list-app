@@ -17,19 +17,23 @@ import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
 
-    public TodoItemsHolder itemsHolder = null;
+    // in tests can inject value
+    public TodoItemsHolderImpl itemsHolder = null;
     private TodoListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        adapter = new TodoListAdapter();
 
         if (itemsHolder == null) {
-            itemsHolder = new TodoItemsHolderImpl();
+            itemsHolder = TodoListApplication.getInstance().getDatabase();
         }
-        adapter = new TodoListAdapter();
-        adapter.setItems(itemsHolder);
+
+        itemsHolder.itemsLiveData.observe(this, todoItems -> {
+            adapter.setItems(itemsHolder.getCurrentItems());
+        });
 
         RecyclerView recyclerView = findViewById(R.id.recyclerTodoItemsList);
         recyclerView.setAdapter(adapter);
@@ -40,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE: {
                         itemsHolder.deleteItem(item);
-                        adapter.setItems(itemsHolder);
                     }
                     case DialogInterface.BUTTON_NEGATIVE:
                         break;
@@ -54,10 +57,11 @@ public class MainActivity extends AppCompatActivity {
         };
 
         adapter.onChangeStatusClickCallback = item -> {
-            TodoItem.Status otherStatus = item.status() == TodoItem.Status.DONE ?
-                    TodoItem.Status.IN_PROGRESS : TodoItem.Status.DONE;
-            item.changeStatus(otherStatus);
-            adapter.setItems(itemsHolder);
+            if (item.status() == TodoItem.Status.IN_PROGRESS) {
+                itemsHolder.markItemDone(item);
+            } else {
+                itemsHolder.markItemInProgress(item);
+            }
         };
 
         FloatingActionButton createTaskBtn = findViewById(R.id.buttonCreateTodoItem);
@@ -70,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             itemsHolder.addNewInProgressItem(insertTaskEditText.getText().toString());
-            adapter.setItems(itemsHolder);
             insertTaskEditText.setText("");
         });
     }
@@ -78,16 +81,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("todoListHolder", itemsHolder);
+        EditText insertTaskEditText = findViewById(R.id.editTextInsertTask);
+        outState.putString("editTextContent", insertTaskEditText.getText().toString());
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Serializable savedHolder = savedInstanceState.getSerializable("todoListHolder");
-        if (savedHolder instanceof TodoItemsHolder) {
-            itemsHolder = (TodoItemsHolder) savedHolder;
-            adapter.setItems(itemsHolder);
+        String text = savedInstanceState.getString("editTextContent", null);
+        if (text != null) {
+            EditText insertTaskEditText = findViewById(R.id.editTextInsertTask);
+            insertTaskEditText.setText(text);
         }
     }
 }

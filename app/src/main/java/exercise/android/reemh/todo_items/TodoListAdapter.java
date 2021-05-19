@@ -9,15 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
     private final ArrayList<TodoItem> mTodoItems = new ArrayList<>();
     OnTaskClickListener onLongPressCallback = null;
     OnTaskClickListener onChangeStatusClickCallback = null;
 
-    public void setItems(TodoItemsHolder todoItemsHolder) {
+    public void setItems(List<TodoItem> items) {
         mTodoItems.clear();
-        mTodoItems.addAll(todoItemsHolder.getCurrentItems());
+        mTodoItems.addAll(items);
+        // todo: sort here?
         notifyDataSetChanged();
     }
 

@@ -28,11 +28,11 @@ import static org.mockito.ArgumentMatchers.eq;
 public class MainActivityTest extends TestCase {
 
     private ActivityController<MainActivity> activityController;
-    private TodoItemsHolder mockHolder;
+    private TodoItemsHolderImpl mockHolder;
 
     @Before
     public void setup() {
-        mockHolder = Mockito.mock(TodoItemsHolder.class);
+        mockHolder = Mockito.mock(TodoItemsHolderImpl.class);
         // when asking the `mockHolder` to get the current items, return an empty list
         Mockito.when(mockHolder.getCurrentItems())
                 .thenReturn(new ArrayList<>());
@@ -136,7 +136,7 @@ public class MainActivityTest extends TestCase {
         ImageView taskStatusIcon = viewInRecycler.findViewById(R.id.imageViewTodoStatus);
 
         TextView taskDescription = viewInRecycler.findViewById(R.id.textViewTodoTaskDescription);
-        assertEquals(activityUnderTest.getDrawable(R.drawable.ic_task_in_progress).getConstantState(),taskStatusIcon.getDrawable().getConstantState());
+        assertEquals(activityUnderTest.getDrawable(R.drawable.ic_task_in_progress).getConstantState(), taskStatusIcon.getDrawable().getConstantState());
         assertEquals(itemDescription, taskDescription.getText().toString());
     }
 
@@ -170,7 +170,7 @@ public class MainActivityTest extends TestCase {
         View viewInRecycler = recyclerView.findViewHolderForAdapterPosition(0).itemView;
         ImageView taskStatusIcon = viewInRecycler.findViewById(R.id.imageViewTodoStatus);
         TextView taskDescription = viewInRecycler.findViewById(R.id.textViewTodoTaskDescription);
-        assertEquals(activityUnderTest.getDrawable(R.drawable.ic_task_done).getConstantState(),taskStatusIcon.getDrawable().getConstantState());
+        assertEquals(activityUnderTest.getDrawable(R.drawable.ic_task_done).getConstantState(), taskStatusIcon.getDrawable().getConstantState());
         assertEquals(itemDescription, taskDescription.getText().toString());
     }
 }
