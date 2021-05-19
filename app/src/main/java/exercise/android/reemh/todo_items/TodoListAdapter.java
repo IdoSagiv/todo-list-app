@@ -60,11 +60,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
                 onChangeStatusClickCallback.onClick(todoItem);
             }
         });
-//        holder.statusCheckBox.setOnClickListener(v -> {
-//            if (onChangeStatusClickCallback != null) {
-//                onChangeStatusClickCallback.onClick(todoItem);
-//            }
-//        });
     }
 
     @Override
