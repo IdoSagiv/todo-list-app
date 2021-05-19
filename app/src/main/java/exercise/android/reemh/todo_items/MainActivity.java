@@ -13,8 +13,6 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.Serializable;
-
 public class MainActivity extends AppCompatActivity {
 
     // in tests can inject value
@@ -28,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new TodoListAdapter();
 
         if (itemsHolder == null) {
-            itemsHolder = TodoListApplication.getInstance().getDatabase();
+            itemsHolder = TodoListApplication.getInstance().getItemsDatabase();
         }
 
         itemsHolder.itemsLiveData.observe(this, todoItems -> {

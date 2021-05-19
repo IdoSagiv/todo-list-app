@@ -3,18 +3,18 @@ package exercise.android.reemh.todo_items;
 import android.app.Application;
 
 public class TodoListApplication extends Application {
-    private TodoItemsHolderImpl database;
+    private TodoItemsHolderImpl itemsDatabase;
     private static TodoListApplication instance = null;
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
-        database = new TodoItemsHolderImpl(this);
+        itemsDatabase = new TodoItemsHolderImpl(this);
     }
 
-    public TodoItemsHolderImpl getDatabase() {
-        return database;
+    public TodoItemsHolderImpl getItemsDatabase() {
+        return itemsDatabase;
     }
 
     public static TodoListApplication getInstance() {
