@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
@@ -19,7 +20,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
     public void setItems(List<TodoItem> items) {
         mTodoItems.clear();
         mTodoItems.addAll(items);
-        // todo: sort here?
+        Collections.sort(mTodoItems);
         notifyDataSetChanged();
     }
 

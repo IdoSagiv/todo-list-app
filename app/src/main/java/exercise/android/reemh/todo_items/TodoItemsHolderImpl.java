@@ -35,7 +35,6 @@ public class TodoItemsHolderImpl implements TodoItemsHolder {
 
     @Override
     public List<TodoItem> getCurrentItems() {
-        Collections.sort(items); // todo: move the sort to somewhere else??
         return new ArrayList<>(items);
     }
 
