@@ -2,10 +2,12 @@ package exercise.android.reemh.todo_items;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class TodoItem implements Serializable, Comparable<TodoItem> {
     public enum Status {
@@ -19,6 +21,13 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
             this.value = value;
         }
 
+        @Nullable
+        static Status parse(String d) {
+            if (d.equals(IN_PROGRESS.asString)) return IN_PROGRESS;
+            if (d.equals(DONE.asString)) return DONE;
+            return null;
+        }
+
         @NonNull
         @Override
         public String toString() {
@@ -26,15 +35,28 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
         }
     }
 
+    private static final String SERIALIZE_SEP = "#!#";
+
+    private final String mId;
     private Status mStatus;
-    private final String mDescription;
+    private String mDescription;
     private final long mCreationTime;
-    private long doneTime;
+    private long mEditTime;
+
+    private TodoItem(String id, Status status, String description, long creationTime, long editTime) {
+        this.mId = id;
+        this.mStatus = status;
+        this.mDescription = description;
+        this.mCreationTime = creationTime;
+        this.mEditTime = editTime;
+    }
 
     public TodoItem(String description) {
         this.mDescription = description;
         this.mStatus = Status.IN_PROGRESS;
         this.mCreationTime = System.currentTimeMillis();
+        this.mEditTime = mCreationTime;
+        this.mId = UUID.randomUUID().toString();
 
         // force time difference between two items
         try {
@@ -45,8 +67,13 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
     }
 
     public void changeStatus(Status status) {
-        if (status == Status.DONE) doneTime = System.currentTimeMillis();
         mStatus = status;
+        mEditTime = System.currentTimeMillis();
+    }
+
+    public void changeDescription(String description) {
+        mDescription = description;
+        mEditTime = System.currentTimeMillis();
     }
 
     public int getStatusIconRes() {
@@ -64,6 +91,10 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
         return mStatus;
     }
 
+    public String id() {
+        return mId;
+    }
+
     /**
      * first compare by status (in-progress<done).
      * if status is inProgress second sort by creation time, if status is done second sort by done time.
@@ -75,7 +106,7 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
     public int compareTo(TodoItem other) {
         int cmp1 = mStatus.value - other.mStatus.value;
         int cmp2 = mStatus == Status.IN_PROGRESS ?
-                (int) (other.mCreationTime - mCreationTime) : (int) (other.doneTime - doneTime);
+                (int) (other.mCreationTime - mCreationTime) : (int) (other.mEditTime - mEditTime);
         return cmp1 != 0 ? cmp1 : cmp2;
     }
 
@@ -84,10 +115,10 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
         Date currentDate = new Date(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
         if (isSameDay(creationDate, currentDate)) {
-            if(isSameMinute(creationDate, currentDate)){
+            if (isSameMinute(creationDate, currentDate)) {
                 sdf = new SimpleDateFormat("HH:mm:ss");
-            }else sdf = new SimpleDateFormat("HH:mm");
-        }else if (isSameYear(creationDate, currentDate)){
+            } else sdf = new SimpleDateFormat("HH:mm");
+        } else if (isSameYear(creationDate, currentDate)) {
             sdf = new SimpleDateFormat("dd/MM");
         }
         return sdf.format(creationDate);
@@ -107,5 +138,29 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
     private static boolean isSameMinute(Date date1, Date date2) {
         SimpleDateFormat fmt = new SimpleDateFormat("mm");
         return fmt.format(date1).equals(fmt.format(date2));
+    }
+
+    public String serialize() {
+        return mId + SERIALIZE_SEP + mStatus + SERIALIZE_SEP + mDescription + SERIALIZE_SEP + mCreationTime + SERIALIZE_SEP + mEditTime;
+    }
+
+    public static TodoItem parse(String serialize) {
+        try {
+            String[] components = serialize.split(SERIALIZE_SEP);
+            String id = components[0];
+            Status status = Status.parse(components[1]);
+            if (status == null) {
+                System.out.printf("Error while parsing a TodoItem.\nInput: %s\nException: %s is an invalid status\n", serialize, components[1]);
+                return null;
+            }
+            String description = components[2];
+            long creationTime = Long.parseLong(components[3]);
+            long editTime = Long.parseLong(components[4]);
+            return new TodoItem(id, status, description, creationTime, editTime);
+
+        } catch (Exception e) {
+            System.out.printf("Error while parsing a TodoItem.\nInput: %s\nException: %s\n", serialize, e.getMessage());
+            return null;
+        }
     }
 }
