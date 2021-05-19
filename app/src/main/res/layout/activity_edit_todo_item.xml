@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layoutDirection="ltr">
+
+    <TextView
+        android:id="@+id/textViewEditTaskTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Edit Task"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textViewTaskStatusInEditActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:text="Done?"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewEditTaskTitle" />
+
+
+    <CheckBox
+        android:id="@+id/checkboxTaskStatusInEditActivity"
+        android:layout_width="26dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/textViewTaskStatusInEditActivity"
+        app:layout_constraintStart_toEndOf="@+id/textViewTaskStatusInEditActivity"
+        app:layout_constraintTop_toTopOf="@+id/textViewTaskStatusInEditActivity" />
+
+    <TextView
+        android:id="@+id/textViewTaskDescriptionInEditActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Description:"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkboxTaskStatusInEditActivity" />
+
+    <EditText
+        android:id="@+id/editTextTaskDescriptionInEditActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:hint="@string/edit_text_insert_task_hint"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/textViewTaskDescriptionInEditActivity"
+        app:layout_constraintStart_toEndOf="@id/textViewTaskDescriptionInEditActivity"
+        app:layout_constraintTop_toTopOf="@id/textViewTaskDescriptionInEditActivity"
+        tools:text="some description" />
+
+    <TextView
+        android:id="@+id/textViewTaskEditTimeInEditActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextTaskDescriptionInEditActivity"
+        tools:text="Last modified on 02.12.2020" />
+
+    <TextView
+        android:id="@+id/textViewTaskEditCreateInEditActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTaskEditTimeInEditActivity"
+        tools:text="Created on 02.12.2020" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
