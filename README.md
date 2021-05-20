@@ -20,7 +20,7 @@ An Android exercise for developers teaching how to play around with RecyclerView
   * DONE items should show the status icon as checked, and the description with a strike-through text
   * IN-PROGRESS items should show the status icon as not checked, and the description text normal
   * upon click on the status icon, flip the TodoItem's state (if was DONE will be IN-PROGRESS, and vice versa)
-  * upon long press a delete item popup shows on the screen
+  * delete task upon slide
   * upon click on the item, na edit screen opens
 - when a screen rotation happens (user flips the screen):
   * the UI should still show the same list of TodoItems
