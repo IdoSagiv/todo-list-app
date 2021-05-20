@@ -138,16 +138,17 @@ public class EditItemActivity extends AppCompatActivity {
         Date editDate = new Date(timeMillisToParse);
         Date currentDate = new Date(currentTimeMillis);
         SimpleDateFormat hourSdf = new SimpleDateFormat("HH");
+        SimpleDateFormat timeSdf = new SimpleDateFormat("HH:mm");
         SimpleDateFormat dateSdf = new SimpleDateFormat("dd/MM/yy");
 
         if (dateSdf.format(editDate).equals(dateSdf.format(currentDate))) {
             if (hourSdf.format(editDate).equals(hourSdf.format(currentDate))) {
                 return TimeUnit.MILLISECONDS.toMinutes(currentTimeMillis - timeMillisToParse) + " minutes ago";
             } else {
-                return "today at " + new SimpleDateFormat("HH:mm").format(editDate);
+                return "today at " + timeSdf.format(editDate);
             }
         } else {
-            return String.format("at %s at %s", dateSdf.format(editDate), hourSdf.format(editDate));
+            return String.format("at %s at %s", dateSdf.format(editDate), timeSdf.format(editDate));
         }
     }
 
