@@ -1,6 +1,8 @@
 package exercise.android.reemh.todo_items;
 
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -156,7 +158,7 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
     }
 
     public String serialize() {
-        return mId + SERIALIZE_SEP + mTitle + SERIALIZE_SEP + mStatus + SERIALIZE_SEP + mDescription + SERIALIZE_SEP + mCreationTime + SERIALIZE_SEP + mEditTime;
+        return "" + mId + SERIALIZE_SEP + mTitle + SERIALIZE_SEP + mStatus.asString + SERIALIZE_SEP + mDescription + SERIALIZE_SEP + mCreationTime + SERIALIZE_SEP + mEditTime;
     }
 
     public static TodoItem parse(String serialize) {
@@ -166,7 +168,8 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
             String title = components[1];
             Status status = Status.parse(components[2]);
             if (status == null) {
-                System.out.printf("Error while parsing a TodoItem.\nInput: %s\nException: %s is not a valid status\n", serialize, components[1]);
+                Log.e("Invalid item serialize", String.format("Error while parsing a TodoItem.\nInput: %s\nException: %s is not a valid status\n", serialize, components[2]));
+                System.out.printf("Error while parsing a TodoItem.\nInput: %s\nException: %s is not a valid status\n", serialize, components[2]);
                 return null;
             }
 
@@ -176,6 +179,7 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
             return new TodoItem(id, title, status, description, creationTime, editTime);
 
         } catch (Exception e) {
+            Log.e("Invalid item serialize", String.format("Error while parsing a TodoItem.\nInput: %s\nException: %s\n", serialize, e.getMessage()));
             System.out.printf("Error while parsing a TodoItem.\nInput: %s\nException: %s\n", serialize, e.getMessage());
             return null;
         }
