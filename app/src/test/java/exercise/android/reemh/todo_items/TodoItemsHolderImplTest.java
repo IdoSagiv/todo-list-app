@@ -113,76 +113,76 @@ public class TodoItemsHolderImplTest {
         // verify
         Assert.assertEquals(TodoItem.Status.IN_PROGRESS, item.status());
     }
-
-    @Test
-    public void when_addNewTwoItems_then_theLastToEnterIsTheFirstInTheList() {
-        // setup
-        TodoItemsHolderImpl holderUnderTest = new TodoItemsHolderImpl(context);
-        holderUnderTest.addNewInProgressItem("old");
-
-        // test
-        holderUnderTest.addNewInProgressItem("new");
-
-        // verify
-        Assert.assertEquals("new", holderUnderTest.getCurrentItems().get(0).title());
-    }
-
-    @Test
-    public void when_markItemDone_then_itIsAfterInProgressItemsInTheList() {
-        // setup
-        TodoItemsHolderImpl holderUnderTest = new TodoItemsHolderImpl(context);
-        holderUnderTest.addNewInProgressItem("old");
-        TodoItem oldItem = holderUnderTest.getCurrentItems().get(0);
-        holderUnderTest.addNewInProgressItem("new");
-        TodoItem newItem = holderUnderTest.getCurrentItems().get(0);
-        List<TodoItem> currItems = holderUnderTest.getCurrentItems();
-        Assert.assertTrue(currItems.indexOf(newItem) < currItems.indexOf(oldItem));
-        // test
-        holderUnderTest.markItemDone(newItem);
-
-        // verify
-        currItems = holderUnderTest.getCurrentItems();
-        Assert.assertTrue(currItems.indexOf(newItem) > currItems.indexOf(oldItem));
-    }
-
-    @Test
-    public void when_changeItemFromDoneToInProgress_then_itIsBackInHisOrigLocation() {
-        // setup
-        TodoItemsHolderImpl holderUnderTest = new TodoItemsHolderImpl(context);
-        holderUnderTest.addNewInProgressItem("old");
-        TodoItem oldItem = holderUnderTest.getCurrentItems().get(0);
-        holderUnderTest.addNewInProgressItem("new");
-        TodoItem newItem = holderUnderTest.getCurrentItems().get(0);
-        holderUnderTest.markItemDone(newItem);
-        List<TodoItem> currItems = holderUnderTest.getCurrentItems();
-        Assert.assertTrue(currItems.indexOf(newItem) > currItems.indexOf(oldItem));
-        // test
-        holderUnderTest.markItemInProgress(newItem);
-        // verify
-        currItems = holderUnderTest.getCurrentItems();
-        Assert.assertTrue(currItems.indexOf(newItem) < currItems.indexOf(oldItem));
-    }
-
-    @Test
-    public void when_twoItemsAreDone_then_theLastToDoneComesBeforeTheFirst() {
-        // setup
-        TodoItemsHolderImpl holderUnderTest = new TodoItemsHolderImpl(context);
-        holderUnderTest.addNewInProgressItem("first done");
-        TodoItem first = holderUnderTest.getCurrentItems().get(0);
-        holderUnderTest.addNewInProgressItem("second done");
-        TodoItem second = holderUnderTest.getCurrentItems().get(0);
-
-        List<TodoItem> currItems = holderUnderTest.getCurrentItems();
-        Assert.assertTrue(currItems.indexOf(second) < currItems.indexOf(first));
-
-        // test
-        holderUnderTest.markItemDone(first);
-        holderUnderTest.markItemDone(second);
-
-        // verify
-        currItems = holderUnderTest.getCurrentItems();
-        Assert.assertTrue(currItems.indexOf(second) < currItems.indexOf(first));
-    }
+//
+//    @Test
+//    public void when_addNewTwoItems_then_theLastToEnterIsTheFirstInTheList() {
+//        // setup
+//        TodoItemsHolderImpl holderUnderTest = new TodoItemsHolderImpl(context);
+//        holderUnderTest.addNewInProgressItem("old");
+//
+//        // test
+//        holderUnderTest.addNewInProgressItem("new");
+//
+//        // verify
+//        Assert.assertEquals("new", holderUnderTest.getCurrentItems().get(0).title());
+//    }
+//
+//    @Test
+//    public void when_markItemDone_then_itIsAfterInProgressItemsInTheList() {
+//        // setup
+//        TodoItemsHolderImpl holderUnderTest = new TodoItemsHolderImpl(context);
+//        holderUnderTest.addNewInProgressItem("old");
+//        TodoItem oldItem = holderUnderTest.getCurrentItems().get(0);
+//        holderUnderTest.addNewInProgressItem("new");
+//        TodoItem newItem = holderUnderTest.getCurrentItems().get(0);
+//        List<TodoItem> currItems = holderUnderTest.getCurrentItems();
+//        Assert.assertTrue(currItems.indexOf(newItem) < currItems.indexOf(oldItem));
+//        // test
+//        holderUnderTest.markItemDone(newItem);
+//
+//        // verify
+//        currItems = holderUnderTest.getCurrentItems();
+//        Assert.assertTrue(currItems.indexOf(newItem) > currItems.indexOf(oldItem));
+//    }
+//
+//    @Test
+//    public void when_changeItemFromDoneToInProgress_then_itIsBackInHisOrigLocation() {
+//        // setup
+//        TodoItemsHolderImpl holderUnderTest = new TodoItemsHolderImpl(context);
+//        holderUnderTest.addNewInProgressItem("old");
+//        TodoItem oldItem = holderUnderTest.getCurrentItems().get(0);
+//        holderUnderTest.addNewInProgressItem("new");
+//        TodoItem newItem = holderUnderTest.getCurrentItems().get(0);
+//        holderUnderTest.markItemDone(newItem);
+//        List<TodoItem> currItems = holderUnderTest.getCurrentItems();
+//        Assert.assertTrue(currItems.indexOf(newItem) > currItems.indexOf(oldItem));
+//        // test
+//        holderUnderTest.markItemInProgress(newItem);
+//        // verify
+//        currItems = holderUnderTest.getCurrentItems();
+//        Assert.assertTrue(currItems.indexOf(newItem) < currItems.indexOf(oldItem));
+//    }
+//
+//    @Test
+//    public void when_twoItemsAreDone_then_theLastToDoneComesBeforeTheFirst() {
+//        // setup
+//        TodoItemsHolderImpl holderUnderTest = new TodoItemsHolderImpl(context);
+//        holderUnderTest.addNewInProgressItem("first done");
+//        TodoItem first = holderUnderTest.getCurrentItems().get(0);
+//        holderUnderTest.addNewInProgressItem("second done");
+//        TodoItem second = holderUnderTest.getCurrentItems().get(0);
+//
+//        List<TodoItem> currItems = holderUnderTest.getCurrentItems();
+//        Assert.assertTrue(currItems.indexOf(second) < currItems.indexOf(first));
+//
+//        // test
+//        holderUnderTest.markItemDone(first);
+//        holderUnderTest.markItemDone(second);
+//
+//        // verify
+//        currItems = holderUnderTest.getCurrentItems();
+//        Assert.assertTrue(currItems.indexOf(second) < currItems.indexOf(first));
+//    }
 
     // TODO: add at least 1 more tests
 
