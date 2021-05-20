@@ -1,5 +1,6 @@
 package exercise.android.reemh.todo_items;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -66,6 +67,16 @@ public class TodoItemsHolderImpl implements TodoItemsHolder {
 
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(item.id(), item.serialize());
+        editor.apply();
+
+        itemsMutableLiveData.setValue(getCurrentItems());
+    }
+
+    public void addItem(TodoItem itemToAdd){
+        items.add(itemToAdd);
+
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(itemToAdd.id(), itemToAdd.serialize());
         editor.apply();
 
         itemsMutableLiveData.setValue(getCurrentItems());

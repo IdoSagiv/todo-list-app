@@ -8,16 +8,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
     // in tests can inject value
     public TodoItemsHolderImpl itemsHolder = null;
     private TodoListAdapter adapter;
+    private TodoItem mRecentlyDeletedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         adapter.onDeleteCallback = item -> {
+            mRecentlyDeletedItem = item;
             itemsHolder.deleteItem(item);
+            showUndoSnackbar();
         };
 
         adapter.onChangeStatusClickCallback = item -> {
@@ -69,6 +74,19 @@ public class MainActivity extends AppCompatActivity {
             insertTaskEditText.setText("");
         });
     }
+
+    private void showUndoSnackbar() {
+        View view = findViewById(R.id.constraintLayoutMainActivity);
+        Snackbar snackbar = Snackbar.make(view, "Undelete the task", Snackbar.LENGTH_LONG);
+        snackbar.setAction("UNDO", v -> undoDelete());
+        snackbar.show();
+    }
+
+    private void undoDelete() {
+        System.out.println("MainActivity.undoDelete");
+        itemsHolder.addItem(mRecentlyDeletedItem);
+    }
+
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
