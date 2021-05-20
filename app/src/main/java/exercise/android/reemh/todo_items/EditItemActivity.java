@@ -61,8 +61,8 @@ public class EditItemActivity extends AppCompatActivity {
         taskStatusCheckBox.setChecked(itemToEdit.status() == TodoItem.Status.DONE);
         taskTitleEditText.setText(itemToEdit.title());
         taskDescriptionEditText.setText(itemToEdit.description());
-        taskLastEditTimeTextView.setText(String.format("last modified %s", lastModifiedText(itemToEdit)));
-        taskCreateTimeTextView.setText(String.format("Created at %s", itemToEdit.creationTimeAsString()));
+        taskLastEditTimeTextView.setText(String.format("last modified %s", timeMillisToString(itemToEdit.editTime())));
+        taskCreateTimeTextView.setText(String.format("Created %s", timeMillisToString(itemToEdit.createTime())));
 
         taskStatusCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -70,7 +70,7 @@ public class EditItemActivity extends AppCompatActivity {
             } else {
                 itemsHolder.markItemInProgress(itemToEdit);
             }
-            taskLastEditTimeTextView.setText(String.format("last modified %s", lastModifiedText(itemToEdit)));
+            taskLastEditTimeTextView.setText(String.format("last modified %s", timeMillisToString(itemToEdit.editTime())));
         });
 
         taskTitleEditText.addTextChangedListener(new TextWatcher() {
@@ -88,7 +88,7 @@ public class EditItemActivity extends AppCompatActivity {
                     taskTitleEditText.setError("title is required");
                 } else {
                     itemsHolder.changeItemTitle(itemToEdit, taskTitleEditText.getText().toString());
-                    taskLastEditTimeTextView.setText(String.format("last modified %s", lastModifiedText(itemToEdit)));
+                    taskLastEditTimeTextView.setText(String.format("last modified %s", timeMillisToString(itemToEdit.editTime())));
                 }
             }
         });
@@ -105,7 +105,7 @@ public class EditItemActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 itemsHolder.changeItemDescription(itemToEdit, taskDescriptionEditText.getText().toString());
-                taskLastEditTimeTextView.setText(String.format("last modified %s", lastModifiedText(itemToEdit)));
+                taskLastEditTimeTextView.setText(String.format("last modified %s", timeMillisToString(itemToEdit.editTime())));
             }
         });
     }
@@ -133,18 +133,35 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     // todo: move to TodoItem class??
-    private String lastModifiedText(TodoItem item) {
+//    private String lastModifiedText(TodoItem item) {
+//        long currentTimeMillis = System.currentTimeMillis();
+//        Date editDate = new Date(item.editTime());
+//        Date currentDate = new Date(currentTimeMillis);
+//        SimpleDateFormat hourSdf = new SimpleDateFormat("HH");
+//        SimpleDateFormat dateSdf = new SimpleDateFormat("dd/MM/yy");
+//
+//        if (dateSdf.format(editDate).equals(dateSdf.format(currentDate))) {
+//            if (hourSdf.format(editDate).equals(hourSdf.format(currentDate))) {
+//                return TimeUnit.MILLISECONDS.toMinutes(currentTimeMillis - item.editTime()) + " minutes ago";
+//            } else {
+//                return "today at " + new SimpleDateFormat("HH:mm").format(editDate);
+//            }
+//        } else {
+//            return String.format("at %s at %s", dateSdf.format(editDate), hourSdf.format(editDate));
+//        }
+//    }
+    private String timeMillisToString(long timeMillisToParse) {
         long currentTimeMillis = System.currentTimeMillis();
-        Date editDate = new Date(item.editTime());
+        Date editDate = new Date(timeMillisToParse);
         Date currentDate = new Date(currentTimeMillis);
         SimpleDateFormat hourSdf = new SimpleDateFormat("HH");
         SimpleDateFormat dateSdf = new SimpleDateFormat("dd/MM/yy");
 
         if (dateSdf.format(editDate).equals(dateSdf.format(currentDate))) {
             if (hourSdf.format(editDate).equals(hourSdf.format(currentDate))) {
-                return TimeUnit.MILLISECONDS.toMinutes(currentTimeMillis - item.editTime()) + " minutes ago";
+                return TimeUnit.MILLISECONDS.toMinutes(currentTimeMillis - timeMillisToParse) + " minutes ago";
             } else {
-                return "today at " +  new SimpleDateFormat("HH:mm").format(editDate);
+                return "today at " + new SimpleDateFormat("HH:mm").format(editDate);
             }
         } else {
             return String.format("at %s at %s", dateSdf.format(editDate), hourSdf.format(editDate));

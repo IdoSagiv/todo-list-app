@@ -109,6 +109,10 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
         return mId;
     }
 
+    public long createTime() {
+        return mCreationTime;
+    }
+
     public long editTime() {
         return mEditTime;
     }
