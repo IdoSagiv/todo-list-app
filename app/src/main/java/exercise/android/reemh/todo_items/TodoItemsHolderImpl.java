@@ -72,7 +72,7 @@ public class TodoItemsHolderImpl implements TodoItemsHolder {
         itemsMutableLiveData.setValue(getCurrentItems());
     }
 
-    public void addItem(TodoItem itemToAdd){
+    public void addItem(TodoItem itemToAdd) {
         items.add(itemToAdd);
 
         SharedPreferences.Editor editor = sp.edit();
