@@ -144,7 +144,7 @@ public class EditItemActivity extends AppCompatActivity {
             if (hourSdf.format(editDate).equals(hourSdf.format(currentDate))) {
                 return TimeUnit.MILLISECONDS.toMinutes(currentTimeMillis - item.editTime()) + " minutes ago";
             } else {
-                return "today at " + hourSdf.format(editDate);
+                return "today at " +  new SimpleDateFormat("HH:mm").format(editDate);
             }
         } else {
             return String.format("at %s at %s", dateSdf.format(editDate), hourSdf.format(editDate));
