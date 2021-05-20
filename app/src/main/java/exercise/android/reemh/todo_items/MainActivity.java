@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showUndoSnackbar() {
         View view = findViewById(R.id.constraintLayoutMainActivity);
-        Snackbar snackbar = Snackbar.make(view, "Undelete the task", Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(view, "Task deleted", Snackbar.LENGTH_LONG);
         snackbar.setAction("UNDO", v -> itemsHolder.addItem(mRecentlyDeletedItem));
         snackbar.show();
     }
