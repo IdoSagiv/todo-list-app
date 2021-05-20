@@ -3,8 +3,6 @@ package exercise.android.reemh.todo_items;
 import java.io.Serializable;
 import java.util.List;
 
-
-// TODO: feel free to add/change/remove methods as you want
 public interface TodoItemsHolder extends Serializable {
 
     /**

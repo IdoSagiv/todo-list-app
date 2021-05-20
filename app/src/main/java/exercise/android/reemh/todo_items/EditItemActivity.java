@@ -58,10 +58,7 @@ public class EditItemActivity extends AppCompatActivity {
         taskCreateTimeTextView = findViewById(R.id.textViewTaskCreateTimeInEditActivity);
 
         // initialize views content
-        // todo: change the edit time to be the current time i.e the time the user opened the edit screen
-
         taskStatusCheckBox.setChecked(itemToEdit.status() == TodoItem.Status.DONE);
-        // todo: why edit time changes in the next command???
         taskTitleEditText.setText(itemToEdit.title());
         taskDescriptionEditText.setText(itemToEdit.description());
         taskLastEditTimeTextView.setText(String.format("last modified %s", lastModifiedText(itemToEdit)));

@@ -30,9 +30,8 @@ public class MainActivity extends AppCompatActivity {
             itemsHolder = TodoListApplication.getInstance().getItemsDatabase();
         }
 
-        itemsHolder.itemsLiveData.observe(this, todoItems -> {
-            adapter.setItems(itemsHolder.getCurrentItems());
-        });
+        itemsHolder.itemsLiveData.observe(this, todoItems ->
+                adapter.setItems(itemsHolder.getCurrentItems()));
 
         RecyclerView recyclerView = findViewById(R.id.recyclerTodoItemsList);
         recyclerView.setAdapter(adapter);
