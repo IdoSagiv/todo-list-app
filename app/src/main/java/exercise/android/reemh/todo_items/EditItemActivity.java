@@ -133,23 +133,6 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     // todo: move to TodoItem class??
-//    private String lastModifiedText(TodoItem item) {
-//        long currentTimeMillis = System.currentTimeMillis();
-//        Date editDate = new Date(item.editTime());
-//        Date currentDate = new Date(currentTimeMillis);
-//        SimpleDateFormat hourSdf = new SimpleDateFormat("HH");
-//        SimpleDateFormat dateSdf = new SimpleDateFormat("dd/MM/yy");
-//
-//        if (dateSdf.format(editDate).equals(dateSdf.format(currentDate))) {
-//            if (hourSdf.format(editDate).equals(hourSdf.format(currentDate))) {
-//                return TimeUnit.MILLISECONDS.toMinutes(currentTimeMillis - item.editTime()) + " minutes ago";
-//            } else {
-//                return "today at " + new SimpleDateFormat("HH:mm").format(editDate);
-//            }
-//        } else {
-//            return String.format("at %s at %s", dateSdf.format(editDate), hourSdf.format(editDate));
-//        }
-//    }
     private String timeMillisToString(long timeMillisToParse) {
         long currentTimeMillis = System.currentTimeMillis();
         Date editDate = new Date(timeMillisToParse);
