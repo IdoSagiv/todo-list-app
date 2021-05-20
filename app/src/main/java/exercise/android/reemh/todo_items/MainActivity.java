@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("MainActivity.onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         adapter = new TodoListAdapter();
@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        System.out.println("MainActivity.onSaveInstanceState");
         super.onSaveInstanceState(outState);
         EditText insertTaskEditText = findViewById(R.id.editTextInsertTask);
         outState.putString("editTextContent", insertTaskEditText.getText().toString());
@@ -94,20 +93,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        System.out.println("MainActivity.onRestoreInstanceState");
         super.onRestoreInstanceState(savedInstanceState);
         String text = savedInstanceState.getString("editTextContent", null);
         if (text != null) {
             EditText insertTaskEditText = findViewById(R.id.editTextInsertTask);
             insertTaskEditText.setText(text);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        System.out.println("MainActivity.onResume");
-        adapter.setItems(itemsHolder.getCurrentItems());
-        super.onResume();
     }
 }
 
