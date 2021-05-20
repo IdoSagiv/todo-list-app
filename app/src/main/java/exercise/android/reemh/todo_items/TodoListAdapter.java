@@ -1,5 +1,6 @@
 package exercise.android.reemh.todo_items;
 
+import android.content.Context;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +15,16 @@ import java.util.List;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
     private final ArrayList<TodoItem> mTodoItems = new ArrayList<>();
-    OnTaskClickListener onLongPressCallback = null;
+    OnTaskClickListener onDeleteCallback = null;
     OnTaskClickListener onClickCallback = null;
     OnTaskClickListener onChangeStatusClickCallback = null;
+
+    private Context context;
+
+    public TodoListAdapter(Context context) {
+        super();
+        this.context = context;
+    }
 
     public void setItems(List<TodoItem> items) {
         mTodoItems.clear();
@@ -48,13 +56,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
             holder.title.setPaintFlags(holder.title.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
-        holder.view.setOnLongClickListener(v -> {
-            if (onLongPressCallback != null) {
-                onLongPressCallback.onClick(todoItem);
-            }
-            return true;
-        });
-
         holder.view.setOnClickListener(v -> {
             if (onClickCallback != null) {
                 onClickCallback.onClick(todoItem);
@@ -71,5 +72,16 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
     @Override
     public int getItemCount() {
         return mTodoItems.size();
+    }
+
+    public void deleteItem(int position) {
+        TodoItem toDelete = mTodoItems.get(position);
+        if (onDeleteCallback != null) {
+            onDeleteCallback.onClick(toDelete);
+        }
+    }
+
+    public Context getContext() {
+        return context;
     }
 }
