@@ -3,11 +3,11 @@ package exercise.android.reemh.todo_items;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class TodoItemsHolderImpl implements TodoItemsHolder {
@@ -39,8 +39,8 @@ public class TodoItemsHolderImpl implements TodoItemsHolder {
     }
 
     @Override
-    public void addNewInProgressItem(String description) {
-        TodoItem newItem = new TodoItem(description);
+    public void addNewInProgressItem(String title) {
+        TodoItem newItem = new TodoItem(title);
         items.add(newItem);
 
         SharedPreferences.Editor editor = sp.edit();
@@ -69,6 +69,36 @@ public class TodoItemsHolderImpl implements TodoItemsHolder {
         editor.apply();
 
         itemsMutableLiveData.setValue(getCurrentItems());
+    }
+
+    public void changeItemTitle(TodoItem item, String newTitle) {
+        item.changeTitle(newTitle);
+
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(item.id(), item.serialize());
+        editor.apply();
+
+        itemsMutableLiveData.setValue(getCurrentItems());
+    }
+
+    public void changeItemDescription(TodoItem item, String newDescription) {
+        item.changeDescription(newDescription);
+
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(item.id(), item.serialize());
+        editor.apply();
+
+        itemsMutableLiveData.setValue(getCurrentItems());
+    }
+
+    @Nullable
+    public TodoItem getItem(String id) {
+        for (TodoItem item : items) {
+            if (item.id().equals(id)) {
+                return item;
+            }
+        }
+        return null;
     }
 
     @Override

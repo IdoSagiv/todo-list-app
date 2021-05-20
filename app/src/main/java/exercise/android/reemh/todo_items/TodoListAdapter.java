@@ -15,6 +15,7 @@ import java.util.List;
 public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
     private final ArrayList<TodoItem> mTodoItems = new ArrayList<>();
     OnTaskClickListener onLongPressCallback = null;
+    OnTaskClickListener onClickCallback = null;
     OnTaskClickListener onChangeStatusClickCallback = null;
 
     public void setItems(List<TodoItem> items) {
@@ -29,7 +30,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
     public TodoItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_todo_item, parent, false);
-
         return new TodoItemHolder(view);
     }
 
@@ -37,15 +37,15 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
     public void onBindViewHolder(@NonNull TodoItemHolder holder, int position) {
         TodoItem todoItem = mTodoItems.get(position);
 
-        holder.description.setText(todoItem.description());
+        holder.title.setText(todoItem.title());
 
-        holder.creationTime.setText(todoItem.creationTime());
+        holder.creationTime.setText(todoItem.creationTimeAsString());
 
         holder.statusIcon.setImageResource(todoItem.getStatusIconRes());
         if (todoItem.status() == TodoItem.Status.DONE) {
-            holder.description.setPaintFlags(holder.description.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.title.setPaintFlags(holder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
-            holder.description.setPaintFlags(holder.description.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.title.setPaintFlags(holder.title.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
         holder.view.setOnLongClickListener(v -> {
@@ -53,6 +53,12 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoItemHolder> {
                 onLongPressCallback.onClick(todoItem);
             }
             return true;
+        });
+
+        holder.view.setOnClickListener(v -> {
+            if (onClickCallback != null) {
+                onClickCallback.onClick(todoItem);
+            }
         });
 
         holder.statusIcon.setOnClickListener(v -> {

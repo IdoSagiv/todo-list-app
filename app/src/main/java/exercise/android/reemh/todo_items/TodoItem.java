@@ -38,25 +38,28 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
     private static final String SERIALIZE_SEP = "#!#";
 
     private final String mId;
+    private String mTitle;
     private Status mStatus;
     private String mDescription;
     private final long mCreationTime;
     private long mEditTime;
 
-    private TodoItem(String id, Status status, String description, long creationTime, long editTime) {
+    private TodoItem(String id, String title, Status status, String desctiption, long creationTime, long editTime) {
         this.mId = id;
+        this.mTitle = title;
         this.mStatus = status;
-        this.mDescription = description;
+        this.mDescription = desctiption;
         this.mCreationTime = creationTime;
         this.mEditTime = editTime;
     }
 
     public TodoItem(String description) {
-        this.mDescription = description;
+        this.mId = UUID.randomUUID().toString();
+        this.mTitle = description;
         this.mStatus = Status.IN_PROGRESS;
+        this.mDescription = "";
         this.mCreationTime = System.currentTimeMillis();
         this.mEditTime = mCreationTime;
-        this.mId = UUID.randomUUID().toString();
 
         // force time difference between two items
         try {
@@ -68,6 +71,11 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
 
     public void changeStatus(Status status) {
         mStatus = status;
+        mEditTime = System.currentTimeMillis();
+    }
+
+    public void changeTitle(String title) {
+        mTitle = title;
         mEditTime = System.currentTimeMillis();
     }
 
@@ -83,6 +91,10 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
         return R.drawable.ic_task_in_progress;
     }
 
+    public String title() {
+        return mTitle;
+    }
+
     public String description() {
         return mDescription;
     }
@@ -93,6 +105,10 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
 
     public String id() {
         return mId;
+    }
+
+    public long editTime() {
+        return mEditTime;
     }
 
     /**
@@ -110,7 +126,7 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
         return cmp1 != 0 ? cmp1 : cmp2;
     }
 
-    public String creationTime() {
+    public String creationTimeAsString() {
         Date creationDate = new Date(mCreationTime);
         Date currentDate = new Date(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
@@ -134,29 +150,30 @@ public class TodoItem implements Serializable, Comparable<TodoItem> {
         return fmt.format(date1).equals(fmt.format(date2));
     }
 
-
     private static boolean isSameMinute(Date date1, Date date2) {
         SimpleDateFormat fmt = new SimpleDateFormat("mm");
         return fmt.format(date1).equals(fmt.format(date2));
     }
 
     public String serialize() {
-        return mId + SERIALIZE_SEP + mStatus + SERIALIZE_SEP + mDescription + SERIALIZE_SEP + mCreationTime + SERIALIZE_SEP + mEditTime;
+        return mId + SERIALIZE_SEP + mTitle + SERIALIZE_SEP + mStatus + SERIALIZE_SEP + mDescription + SERIALIZE_SEP + mCreationTime + SERIALIZE_SEP + mEditTime;
     }
 
     public static TodoItem parse(String serialize) {
         try {
             String[] components = serialize.split(SERIALIZE_SEP);
             String id = components[0];
-            Status status = Status.parse(components[1]);
+            String title = components[1];
+            Status status = Status.parse(components[2]);
             if (status == null) {
-                System.out.printf("Error while parsing a TodoItem.\nInput: %s\nException: %s is an invalid status\n", serialize, components[1]);
+                System.out.printf("Error while parsing a TodoItem.\nInput: %s\nException: %s is not a valid status\n", serialize, components[1]);
                 return null;
             }
-            String description = components[2];
-            long creationTime = Long.parseLong(components[3]);
-            long editTime = Long.parseLong(components[4]);
-            return new TodoItem(id, status, description, creationTime, editTime);
+
+            String description = components[3];
+            long creationTime = Long.parseLong(components[4]);
+            long editTime = Long.parseLong(components[5]);
+            return new TodoItem(id, title, status, description, creationTime, editTime);
 
         } catch (Exception e) {
             System.out.printf("Error while parsing a TodoItem.\nInput: %s\nException: %s\n", serialize, e.getMessage());

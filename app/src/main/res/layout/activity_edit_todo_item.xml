@@ -40,27 +40,53 @@
         app:layout_constraintTop_toTopOf="@+id/textViewTaskStatusInEditActivity" />
 
     <TextView
-        android:id="@+id/textViewTaskDescriptionInEditActivity"
+        android:id="@+id/textViewTaskTitleInEditActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Description:"
+        android:text="Title:"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/checkboxTaskStatusInEditActivity" />
 
     <EditText
-        android:id="@+id/editTextTaskDescriptionInEditActivity"
-        android:layout_width="wrap_content"
+        android:id="@+id/editTextTaskTitleInEditActivity"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:hint="@string/edit_text_insert_task_hint"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/add_task_title_hint"
+        android:maxLines="1"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@id/textViewTaskDescriptionInEditActivity"
+        app:layout_constraintBottom_toBottomOf="@id/textViewTaskTitleInEditActivity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textViewTaskTitleInEditActivity"
+        app:layout_constraintTop_toTopOf="@id/textViewTaskTitleInEditActivity" />
+
+    <TextView
+        android:id="@+id/textViewTaskDescriptionInEditActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Details:"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextTaskTitleInEditActivity" />
+
+    <EditText
+        android:id="@+id/editTextTaskDescriptionInEditActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/add_task_description_hint"
+        android:maxLines="5"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/textViewTaskDescriptionInEditActivity"
-        app:layout_constraintTop_toTopOf="@id/textViewTaskDescriptionInEditActivity"
-        tools:text="some description" />
+        app:layout_constraintTop_toBottomOf="@id/editTextTaskTitleInEditActivity" />
 
     <TextView
         android:id="@+id/textViewTaskEditTimeInEditActivity"
@@ -71,10 +97,10 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextTaskDescriptionInEditActivity"
-        tools:text="Last modified on 02.12.2020" />
+        tools:text="Last modified Today at 10:21" />
 
     <TextView
-        android:id="@+id/textViewTaskEditCreateInEditActivity"
+        android:id="@+id/textViewTaskCreateTimeInEditActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

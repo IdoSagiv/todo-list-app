@@ -1,7 +1,6 @@
 package exercise.android.reemh.todo_items;
 
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -135,7 +134,7 @@ public class MainActivityTest extends TestCase {
         View viewInRecycler = recyclerView.findViewHolderForAdapterPosition(0).itemView;
         ImageView taskStatusIcon = viewInRecycler.findViewById(R.id.imageViewTodoStatus);
 
-        TextView taskDescription = viewInRecycler.findViewById(R.id.textViewTodoTaskDescription);
+        TextView taskDescription = viewInRecycler.findViewById(R.id.textViewTodoTaskTitle);
         assertEquals(activityUnderTest.getDrawable(R.drawable.ic_task_in_progress).getConstantState(), taskStatusIcon.getDrawable().getConstantState());
         assertEquals(itemDescription, taskDescription.getText().toString());
     }
@@ -169,7 +168,7 @@ public class MainActivityTest extends TestCase {
         // 2. verify that the shown view has a checkbox being checked and has a TextView showing the correct description
         View viewInRecycler = recyclerView.findViewHolderForAdapterPosition(0).itemView;
         ImageView taskStatusIcon = viewInRecycler.findViewById(R.id.imageViewTodoStatus);
-        TextView taskDescription = viewInRecycler.findViewById(R.id.textViewTodoTaskDescription);
+        TextView taskDescription = viewInRecycler.findViewById(R.id.textViewTodoTaskTitle);
         assertEquals(activityUnderTest.getDrawable(R.drawable.ic_task_done).getConstantState(), taskStatusIcon.getDrawable().getConstantState());
         assertEquals(itemDescription, taskDescription.getText().toString());
     }

@@ -1,7 +1,5 @@
 package exercise.android.reemh.todo_items;
 
-import junit.framework.TestCase;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -105,7 +103,7 @@ public class TodoItemsHolderImplTest {
         holderUnderTest.addNewInProgressItem("new");
 
         // verify
-        Assert.assertEquals("new", holderUnderTest.getCurrentItems().get(0).description());
+        Assert.assertEquals("new", holderUnderTest.getCurrentItems().get(0).title());
     }
 
     @Test
