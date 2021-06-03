@@ -1,6 +1,7 @@
 # TodoItems List
 
-An Android exercise for developers teaching how to play around with RecyclerView and Adapter
+An Android exercise for developers teaching how to play around with RecyclerView and Adapter</br>
+This app was written as part of PostPc (Android) course of The Hebrew University of Jerusalem.
 
 ## Specs
 - the screen starts out empty (or with previous tasks)
